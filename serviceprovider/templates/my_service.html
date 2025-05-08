@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}My Services{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Services Posted by {{ retailer.user.username }}</h2>
+
+    {% if services %}
+        <div class="row mt-4">
+            {% for service in services %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <img src="{{ service.image_url }}" class="card-img-top" alt="Service Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ service.service_type }}</h5>
+                        <p class="card-text"><strong>Company:</strong> {{ service.company_name }}</p>
+                        <p class="card-text"><strong>Specialization:</strong> {{ service.specialization }}</p>
+                        <p class="card-text">{{ service.description }}</p>
+                        <a href="{{ service.website_link }}" class="btn btn-primary" target="_blank">Visit Website</a>
+                        <a href="{% url 'edit_service' service.id %}" class="btn btn-warning mt-2">Edit</a>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven’t posted any services yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Container with background gradient -->
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-5 text-primary">Welcome, {{ customer.username }}</h1>
+        <a href="{% url 'customer_logout' %}" class="btn btn-danger rounded-pill shadow-sm">Logout</a>
+    </div>
+
+    <h3 class="mb-4 text-secondary">Available Services</h3>
+
+    {% if services %}
+        <div class="row">
+            {% for service in services %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <!-- Card with hover effects -->
+                    <div class="card h-100 shadow-lg border-0 rounded-lg overflow-hidden">
+                        {% if service.image_url %}
+                            <img src="{{ service.image_url }}" class="card-img-top" alt="Service Image">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title text-primary">{{ service.service_type }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ service.company_name }}</h6>
+                            <p class="card-text mt-3">{{ service.description }}</p>
+                            <p class="card-text text-muted"><strong>Specialization:</strong> {{ service.specialization }}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                {% if service.website_link %}
+                                    <a href="{{ service.website_link }}" target="_blank" class="btn btn-outline-primary rounded-pill">Visit Website</a>
+                                {% endif %}
+                                <a href="{% url 'chat_view' service.retailer.user.id %}" class="btn btn-outline-success rounded-pill">Chat with Retailer</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            No services available right now.
+        </div>
+    {% endif %}
+
+    <!-- Retailer Messages Section -->
+    <h3 class="mb-4 mt-5 text-secondary">Messages from Retailers</h3>
+    <div class="bg-white rounded shadow-sm p-4">
+        {% if received_messages %}
+            {% for msg in received_messages %}
+                <div class="border-bottom pb-3 mb-3">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <strong class="text-dark">{{ msg.sender.username }}</strong><br>
+                            <span class="text-muted">{{ msg.message }}</span>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-secondary">{{ msg.timestamp|date:"d M Y, h:i A" }}</small><br>
+                            <a href="{% url 'chat_view' msg.sender.id %}" class="btn btn-sm btn-outline-success mt-2">Reply</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No messages received from retailers yet.</p>
+        {% endif %}
+    </div>
+
+    <!-- Send Message to Retailer Form -->
+    <h3 class="mt-5 text-secondary">Send a Message to Retailer</h3>
+    <form method="POST" action="reverse('send_message_to_retailer', args=[retailer_id])">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea name="message" id="message" class="form-control" rows="3" placeholder="Write your message here" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+    </form>
+</div>
+{% endblock %}
+
+<!-- Inline CSS -->
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #f6f9fc, #e2eff1);
+        color: #333;
+    }
+
+    .navbar {
+        background-color: #6f42c1 !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-brand, .nav-link {
+        color: white !important;
+    }
+
+    .nav-link:hover {
+        color: #ffd700 !important;
+    }
+
+    .container {
+        padding-top: 80px;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-subtitle {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .btn-outline-primary, .btn-outline-success {
+        font-weight: bold;
+        border-radius: 30px;
+        padding: 8px 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-primary:hover, .btn-outline-success:hover {
+        background-color: #6f42c1;
+        color: white;
+        border-color: #6f42c1;
+    }
+
+    .btn-danger {
+        font-weight: bold;
+        border-radius: 25px;
+        padding: 8px 20px;
+    }
+
+    .alert-info {
+        background-color: #cce5ff;
+        color: #004085;
+        font-weight: bold;
+    }
+
+    h1, h3 {
+        font-weight: 600;
+    }
+
+    .shadow-lg {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 200px;
+        }
+    }
+
+    .bg-white {
+        background-color: #fff;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .text-muted {
+        font-size: 0.95rem;
+    }
+
+    .btn-outline-success {
+        font-size: 0.85rem;
+        padding: 5px 12px;
+    }
+</style>

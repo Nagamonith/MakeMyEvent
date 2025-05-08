@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Main container with background and spacing -->
+<div class="container mt-5">
+    <h2 class="text-primary mb-4">Welcome, {{ jobseeker.username }}</h2>
+
+    <h4 class="text-secondary mt-4 mb-3">Available Job Listings</h4>
+
+    {% for job in jobs %}
+    <div class="card job-card shadow-lg mb-4 rounded-lg overflow-hidden">
+        <div class="card-body">
+            <h5 class="card-title">{{ job.job_title }}</h5>
+            <h6 class="card-subtitle mb-3 text-muted">Posted by: {{ job.retailer.user.username }} | Location: {{ job.location }}</h6>
+            <p class="card-text"><strong>Description:</strong> {{ job.description }}</p>
+            <p class="card-text"><strong>Requirements:</strong> {{ job.requirements }}</p>
+            <p class="card-text"><strong>Payment:</strong> ₹{{ job.payment }}</p>
+            <p class="card-text"><small class="text-muted">Posted on: {{ job.posted_on|date:"d M Y" }}</small></p>
+        </div>
+    </div>
+    {% empty %}
+        <div class="alert alert-info text-center" role="alert">
+            No job postings available currently.
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<!-- Inline CSS for Styling -->
+<style>
+    /* Global body styling with gradient background */
+    body {
+        background: linear-gradient(135deg, #d3cce3, #e9e4f0);
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    /* Main container adjustments */
+    .container {
+        padding-top: 80px; /* Spacing to account for fixed navbar */
+    }
+
+    /* Heading styles for welcome and section titles */
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #4A90E2;
+        text-align: center;
+    }
+
+    h4 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #5D6D7E;
+        margin-bottom: 20px;
+    }
+
+    /* Styling for each job card */
+    .job-card {
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Hover effect on job cards */
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Title of job inside the card */
+    .card-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2C3E50;
+    }
+
+    /* Subtitle for job card (Posted by and Location) */
+    .card-subtitle {
+        font-size: 1.1rem;
+        color: #7F8C8D;
+        font-weight: 500;
+        margin-bottom: 15px;
+    }
+
+    /* Text inside the card for description, requirements, payment */
+    .card-text {
+        font-size: 1rem;
+        color: #34495E;
+        margin-bottom: 15px;
+    }
+
+    /* Styling for the job posting date */
+    .card-text small {
+        font-size: 0.875rem;
+        color: #95A5A6;
+    }
+
+    /* Styling for empty state (no job postings) */
+    .alert-info {
+        background-color: #D5E8F3;
+        color: #1F77B4;
+        font-weight: 600;
+        padding: 15px;
+        border-radius: 8px;
+        font-size: 1.1rem;
+    }
+
+    /* Custom link styling */
+    .card-text a {
+        text-decoration: none;
+        color: #2980B9;
+        font-weight: 500;
+    }
+
+    .card-text a:hover {
+        color: #1F77B4;
+        text-decoration: underline;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        .container {
+            padding-top: 60px;
+        }
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Add a subtle animation for text and hover effects */
+    .card-body {
+        transition: all 0.3s ease;
+    }
+
+    .card-body:hover {
+        color: #2C3E50;
+        transform: scale(1.02);
+    }
+</style>

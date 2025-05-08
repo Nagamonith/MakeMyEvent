@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header text-center">
+                    <h3 class="card-title">Add Your Service</h3>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {% for message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="image_url" class="form-label">Image URL</label>
+                            <input type="text" id="image_url" name="image_url" class="form-control" placeholder="Enter image URL" required>
+                        </div>
+                        
+                        <div class="form-group mb-4">
+                            <label for="service_type" class="form-label">Service Type</label>
+                            <input type="text" id="service_type" name="service_type" class="form-control" placeholder="Enter service type" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="company_name" class="form-label">Company Name</label>
+                            <input type="text" id="company_name" name="company_name" class="form-control" placeholder="Enter company name" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="specialization" class="form-label">Specialization</label>
+                            <input type="text" id="specialization" name="specialization" class="form-control" placeholder="Enter specialization" required>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" name="description" class="form-control" rows="4" placeholder="Enter description" required></textarea>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="website_link" class="form-label">Website Link</label>
+                            <input type="url" id="website_link" name="website_link" class="form-control" placeholder="Enter website link" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Submit Service</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

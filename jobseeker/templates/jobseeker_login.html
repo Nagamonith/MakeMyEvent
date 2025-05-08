@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Seeker Login{% endblock %}
+
+{% block content %}
+<div class="card mx-auto mt-5">
+    <div class="card-body">
+        <h3>Job Seeker Login</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input type="text" class="form-control" name="username" placeholder="Username or Email" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Login</button>
+        </form>
+        <div class="register-link">
+            <span>New user?</span>
+            <a href="{% url 'jobseeker_register' %}" class="btn btn-outline-danger mt-2">Register</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

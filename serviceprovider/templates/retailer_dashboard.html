@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block title %}Retailer Dashboard{% endblock %}
+
+{% block content %}
+<style>
+    /* General Styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .dashboard-container {
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 20px auto;
+        max-width: 900px;
+    }
+
+    /* Profile Section in Top Corner */
+    .profile-section {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .profile-section a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .profile-section a:hover {
+        text-decoration: underline;
+    }
+
+    /* Dashboard Content */
+    h2 {
+        margin-top: 60px;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .cards-container {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .card {
+        width: 48%;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .card-header i {
+        font-size: 24px;
+        color: #007bff;
+    }
+
+    .card-header h3 {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    .card-body {
+        font-size: 16px;
+    }
+
+    .card-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        background-color: #28a745;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .card-btn:hover {
+        background-color: #218838;
+    }
+
+    /* Chat Styles */
+    .chat-container {
+        margin-top: 30px;
+    }
+
+    .chat-header {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .messages-container {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        background-color: #f9f9f9;
+        margin-bottom: 10px;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .message.sent {
+        background-color: #d4edda;
+    }
+
+    .message.received {
+        background-color: #f8d7da;
+    }
+
+    .message .sender {
+        font-weight: bold;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        resize: none;
+    }
+
+    .chat-btn {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+
+    .chat-btn:hover {
+        background-color: #0056b3;
+    }
+
+    /* Customer Selection Styles */
+    .customer-selection {
+        margin-top: 20px;
+    }
+
+    .customer-selection h3 {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .customer-selection ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .customer-selection li {
+        margin: 5px 0;
+    }
+
+    .customer-selection a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+    .customer-selection a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Profile Details in Top Corner -->
+    <div class="profile-section">
+        <p>Welcome, {{ retailer.user.username }}!</p> <!-- Adjusted to use retailer's associated user -->
+        <a href="/logout">Logout</a>
+    </div>
+    
+    <h2>Your Dashboard</h2>
+    <p>This is your dashboard. You can manage your services and post job opportunities here.</p>
+    
+    <!-- Dashboard Cards -->
+    <div class="cards-container">
+        <!-- Card 1: Add Service -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-plus-circle"></i>
+                <h3>Add Service</h3>
+            </div>
+            <div class="card-body">
+                <p>Click below to add a new service to your offerings.</p>
+                <a href="{% url 'addservice' %}" class="card-btn">Add Service</a>
+            </div>
+        </div>
+        
+        <!-- Card 2: Post Job -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-briefcase"></i>
+                <h3>Post Job</h3>
+            </div>
+            <div class="card-body">
+                <p>Click below to post a job opening for your services.</p>
+                <a href="{% url 'postjob' %}" class="card-btn">Post Job</a>
+            </div>
+        </div>
+        
+        <!-- Card 3: My Posted Services -->
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-list-alt"></i>
+                <h3>My Posted Services</h3>
+            </div>
+            <div class="card-body">
+                <p>View all the services you have posted.</p>
+                <a href="{% url 'my_services' %}" class="card-btn">View Services</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Selection Section -->
+    <div class="customer-selection">
+        <h3>Choose a Customer to Chat</h3>
+        <ul>
+            {% for customer in customers %}
+                <li><a href="?customer_id={{ customer.id }}">{{ customer.username }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-container">
+        <div class="chat-header">
+            <h3>Chat with Customer</h3>
+        </div>
+        
+        <!-- Messages Section -->
+        <div class="messages-container">
+            {% for message in messages %}
+                <div class="message {% if message.sender == retailer.user %}sent{% else %}received{% endif %}">
+                    <span class="sender">{{ message.sender.username }}:</span> {{ message.message }}
+                </div>
+            {% empty %}
+                <p>No messages yet.</p>
+            {% endfor %}
+        </div>
+
+        <!-- Chat Message Form -->
+        <form method="POST">
+            {% csrf_token %}
+            {% if selected_customer %}
+                <input type="hidden" name="customer_id" value="{{ selected_customer.user.id }}">
+            {% endif %}
+            <textarea name="message" name="message" placeholder="Write your message..." rows="3" required></textarea>
+            <button type="submit" class="chat-btn">Send</button>
+        </form>
+        
+        
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="job-form-container">
+        <h2>Post a Job</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="job_title">Job Title:</label>
+            <input type="text" name="job_title" required>
+
+            <label for="description">Description:</label>
+            <textarea name="description" rows="4" required></textarea>
+
+            <label for="requirements">Requirements:</label>
+            <textarea name="requirements" rows="3" required></textarea>
+
+            <label for="payment">Payment (₹):</label>
+            <input type="number" name="payment" step="0.01" required>
+
+            <label for="number_of_entries">Number of Entries:</label>
+            <input type="number" name="number_of_entries" min="1" required>
+            
+            <label for="location">Location:</label>
+            <input type="text" name="location" required>
+
+
+            <button type="submit">Post Job</button>
+        </form>
+    </div>
+</div>
+{% block extra_css %}
+<style>
+    .job-form-container {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 450px;
+        margin: 0 auto;
+    }
+
+    .job-form-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin: 12px 0 6px;
+        color: #444;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: vertical;
+    }
+
+    button[type="submit"] {
+        margin-top: 20px;
+        background-color: #007bff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+{% endblock %}
