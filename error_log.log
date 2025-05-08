@@ -1,0 +1,634 @@
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 82, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118205
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 82, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118205
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 89, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118151
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 89, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118136
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 84, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118159
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 86, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118128
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 68, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118171
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 68, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118171
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 68, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118171
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 68, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "monic": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118188
+"GET /customer/dashboard/ HTTP/1.1" 500 118246
+"GET /customer/dashboard/ HTTP/1.1" 500 118246
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 71, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "monic": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118219
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 71, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "monic": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118219
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 71, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "monic": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118219
+"GET /customer/dashboard/ HTTP/1.1" 500 118246
+"GET /customer/dashboard/ HTTP/1.1" 500 118246
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 71, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118202
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 80, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118161
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 92, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(customer=customer).order_by('-timestamp')
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 118177
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 85, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 117912
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 85, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 117912
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 89, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 117727
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 89, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 117727
+Internal Server Error: /customer/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\customer\views.py", line 89, in customer_dashboard
+    received_messages = ChatMessage.objects.filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1465, in build_filter
+    self.check_related_objects(join_info.final_field, value, join_info.opts)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1276, in check_related_objects
+    self.check_query_object_type(value, opts, field)
+  File "C:\Users\MONITH\AppData\Local\Programs\Python\Python39\lib\site-packages\django\db\models\sql\query.py", line 1253, in check_query_object_type
+    raise ValueError(
+ValueError: Cannot query "moni": Must be "Customer" instance.
+"GET /customer/dashboard/ HTTP/1.1" 500 117727

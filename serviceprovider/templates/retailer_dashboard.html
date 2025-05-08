@@ -190,7 +190,7 @@
 <div class="dashboard-container">
     <!-- Profile Details in Top Corner -->
     <div class="profile-section">
-        <p>Welcome, {{ retailer.user.username }}!</p> <!-- Adjusted to use retailer's associated user -->
+        <p>Welcome, {{ retailer.user.username }}!</p>
         <a href="/logout">Logout</a>
     </div>
     
@@ -255,7 +255,7 @@
         <!-- Messages Section -->
         <div class="messages-container">
             {% for message in messages %}
-                <div class="message {% if message.sender == retailer.user %}sent{% else %}received{% endif %}">
+                <div class="message {% if message.sender.id == retailer.user.id %}sent{% else %}received{% endif %}">
                     <span class="sender">{{ message.sender.username }}:</span> {{ message.message }}
                 </div>
             {% empty %}
@@ -269,11 +269,9 @@
             {% if selected_customer %}
                 <input type="hidden" name="customer_id" value="{{ selected_customer.user.id }}">
             {% endif %}
-            <textarea name="message" name="message" placeholder="Write your message..." rows="3" required></textarea>
+            <textarea name="message" placeholder="Write your message..." rows="3" required></textarea>
             <button type="submit" class="chat-btn">Send</button>
         </form>
-        
-        
     </div>
 </div>
 {% endblock %}
