@@ -1,8 +1,9 @@
 # serviceprovider/models.py
 from django.db import models
-from django.contrib.auth.models import User
+
 
 class ChatMessage(models.Model):
+    from django.contrib.auth.models import User
     retailer = models.ForeignKey('retailer.Retailer', on_delete=models.CASCADE)  # Lazy import for Retailer
     customer = models.ForeignKey('customer.Customer', on_delete=models.CASCADE)  # Lazy import for Customer
     message = models.TextField()

@@ -85,63 +85,62 @@ from django.contrib.auth.models import User
 @login_required
 def retailer_dashboard(request):
     try:
-        # Get the Retailer instance associated with the current logged-in user
         retailer = Retailer.objects.get(user=request.user)
+        print(f"Retailer found: {retailer.user.username}")  # Debug
     except Retailer.DoesNotExist:
         messages.error(request, "You are not registered as a retailer.")
         return redirect('retailer-registration')
 
-    # Initialize variables for messages and the selected customer
-    messages_qs = []
+    # Get the customer_id from request
+    customer_id = request.GET.get('customer_id')
     selected_customer = None
-
-    # Get the customer_id from the URL parameter if available
-    customer_id = request.GET.get('customer_id') or request.POST.get('customer_id')
+    messages_qs = []
+    room_name = ""
 
     if customer_id:
         try:
-            # Get the Customer instance by ID (via the associated User)
             customer_user = User.objects.get(id=customer_id)
             selected_customer = Customer.objects.get(user=customer_user)
+            
+            # Generate consistent room name
+            user_ids = sorted([request.user.id, customer_user.id])
+            room_name = f"{user_ids[0]}_{user_ids[1]}"
+            print(f"Room name generated: {room_name}")  # Debug
+
+            # Get messages exchanged between this retailer and selected customer
+            messages_qs = ChatMessage.objects.filter(
+                Q(sender=request.user, retailer=retailer, customer=selected_customer) |
+                Q(sender=customer_user, retailer=retailer, customer=selected_customer)
+            ).order_by('timestamp')
+
+            print(f"Messages found: {messages_qs.count()}")  # Debug
+
+            # Mark unread messages from customer as read
+            if request.user != customer_user:
+                unread_messages = messages_qs.filter(sender=customer_user, is_read=False)
+                unread_messages.update(is_read=True)
+                print(f"Marked {unread_messages.count()} messages as read.")  # Debug
+                
         except (User.DoesNotExist, Customer.DoesNotExist):
             messages.error(request, "Selected customer not found.")
             return redirect('retailer_dashboard')
 
-        # Query chat messages exchanged between the retailer and the selected customer
-        messages_qs = ChatMessage.objects.filter(
-            Q(sender=request.user, retailer=retailer, customer=selected_customer) |
-            Q(sender=selected_customer.user, retailer=retailer, customer=selected_customer)
-        ).order_by('timestamp')
+    # Get all unique customers this retailer has chatted with
+    customer_ids = ChatMessage.objects.filter(
+        retailer=retailer
+    ).values_list('customer', flat=True).distinct()
 
-
-    # Handle sending a message via POST
-    if request.method == 'POST':
-        message_content = request.POST.get('message')
-        if message_content and selected_customer:
-            ChatMessage.objects.create(
-                sender=request.user,
-                retailer=retailer,
-                customer=selected_customer,
-                message=message_content
-            )
-            messages.success(request, "Message sent successfully.")
-            return redirect(f"{request.path}?customer_id={customer_id}")
-        else:
-            messages.error(request, "Message cannot be empty.")
-
-    # Optional: List all customers the retailer has chatted with
-    # Query all ChatMessages where the retailer field equals our retailer instance
-    customer_ids = ChatMessage.objects.filter(retailer=retailer).values_list('customer', flat=True).distinct()
     customers = Customer.objects.filter(id__in=customer_ids)
-    # For convenience, we return the associated User objects (to display usernames)
-    customers_users = User.objects.filter(id__in=customers.values_list('user', flat=True))
 
     return render(request, 'retailer_dashboard.html', {
         'retailer': retailer,
         'messages': messages_qs,
-        'customers': customers_users,  # This is a QuerySet of User instances associated with Customer
-        'selected_customer': selected_customer
+        'customers': customers,
+        'selected_customer': selected_customer,
+        'room_name': room_name
     })
+
+
 
 
 

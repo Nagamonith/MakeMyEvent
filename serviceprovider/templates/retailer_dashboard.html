@@ -253,10 +253,12 @@
         </div>
         
         <!-- Messages Section -->
-        <div class="messages-container">
+        <div id="chat-messages" class="messages-container">
             {% for message in messages %}
-                <div class="message {% if message.sender == retailer.user %}sent{% else %}received{% endif %}">
-                    <span class="sender">{{ message.sender.username }}:</span> {{ message.message }}
+                <div class="message {% if message.sender.id == retailer.user.id %}sent{% else %}received{% endif %}">
+                    <span class="sender">{{ message.sender.username }}:</span> 
+                    <span class="message-text">{{ message.message }}</span>
+                    <span class="timestamp">{{ message.timestamp|date:"H:i" }}</span>
                 </div>
             {% empty %}
                 <p>No messages yet.</p>
@@ -264,16 +266,95 @@
         </div>
 
         <!-- Chat Message Form -->
-        <form method="POST">
+        <form id="chat-form" method="POST">
             {% csrf_token %}
             {% if selected_customer %}
-                <input type="hidden" name="customer_id" value="{{ selected_customer.user.id }}">
+                <input type="hidden" name="customer_id" value="{{ selected_customer.id }}">
+                <!-- Hidden fields for WebSocket -->
+                <div id="room-name" style="display:none">{{ room_name }}</div>
+                <div id="current-user-id" style="display:none">{{ request.user.id }}</div>
+                <div id="other-user-id" style="display:none">{{ selected_customer.user.id }}</div>
+                <div id="sender-username" style="display:none">{{ selected_customer.user.username }}</div>
             {% endif %}
-            <textarea name="message" name="message" placeholder="Write your message..." rows="3" required></textarea>
-            <button type="submit" class="chat-btn">Send</button>
+            <textarea id="chat-message-input" name="message" placeholder="Write your message..." rows="3" required></textarea>
+            <button id="chat-message-submit" type="submit" class="chat-btn">Send</button>
         </form>
-        
-        
     </div>
 </div>
+
+<!-- Include the chat JavaScript -->
+{% load static %}
+<!-- Add this at the bottom of retailer_dashboard.html -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize chat if we have a selected customer
+    const roomNameElement = document.getElementById('room-name');
+    if (!roomNameElement) return;
+
+    const roomName = roomNameElement.textContent;
+    const currentUserId = parseInt(document.getElementById('current-user-id').textContent);
+    const otherUserId = parseInt(document.getElementById('other-user-id').textContent);
+    const senderUsername = document.getElementById('sender-username').textContent;
+    
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
+    );
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const messageElement = document.createElement('div');
+        
+        if (data.sender_id === currentUserId) {
+            messageElement.className = 'message sent';
+            messageElement.innerHTML = `
+                <span class="sender">You:</span>
+                <span class="message-text">${data.message}</span>
+                <span class="timestamp">${data.timestamp}</span>
+            `;
+        } else {
+            messageElement.className = 'message received';
+            messageElement.innerHTML = `
+                <span class="sender">${senderUsername}:</span>
+                <span class="message-text">${data.message}</span>
+                <span class="timestamp">${data.timestamp}</span>
+            `;
+        }
+        
+        document.querySelector('#chat-messages').appendChild(messageElement);
+        scrollToBottom();
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+        setTimeout(function() {
+            console.log('Attempting to reconnect...');
+            setupWebSocket();
+        }, 2000);
+    };
+
+    document.querySelector('#chat-form').onsubmit = function(e) {
+        e.preventDefault();
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value.trim();
+        
+        if (message) {
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'sender_id': currentUserId,
+                'receiver_id': otherUserId
+            }));
+            messageInputDom.value = '';
+        }
+    };
+
+    function scrollToBottom() {
+        const chatMessages = document.querySelector('#chat-messages');
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    
+    scrollToBottom();
+    document.querySelector('#chat-message-input').focus();
+});
+</script>
+
 {% endblock %}

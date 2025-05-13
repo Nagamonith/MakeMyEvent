@@ -1,14 +1,13 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
-from django.contrib import messages
-from .models import Customer
-from django.contrib.auth.hashers import check_password, make_password
-from serviceprovider.models import Service  # ✅ import your service model
-from .models import Customer
-from django.contrib.auth.models import User
-from django.contrib.auth.hashers import make_password
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
+from .models import Customer
+from serviceprovider.models import Service, Retailer
+from chat.models import ChatMessage  # Correct import
+from django.db.models import Q
 # Customer Registration
 def customer_register(request):
     if request.method == 'POST':
@@ -23,23 +22,14 @@ def customer_register(request):
             password=make_password(password)  # Hash the password
         )
 
-        # Link to Customer model
+        # Create Customer and link to User
         Customer.objects.create(user=user)
 
         return redirect('customer_login')
 
     return render(request, 'customer_register.html')
 
-
 # Customer Login
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .models import Customer
-from django.views.decorators.csrf import csrf_exempt
-
 def customer_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -49,49 +39,41 @@ def customer_login(request):
         
         if user is not None:
             login(request, user)
-            return redirect('customer_dashboard')  # Or another success URL
+            return redirect('customer_dashboard')  # Redirect to customer dashboard
         else:
             messages.error(request, 'Invalid credentials')
     
     return render(request, 'customer_login.html')
 
+# Customer Dashboard
 
-from .models import Customer
-from serviceprovider.models import Service
-
-
-from chat.models import ChatMessage  # 👈 Make sure to import this
-from chat.models import ChatMessage
 
 @login_required(login_url='customer_login')
 def customer_dashboard(request):
-    customer = Customer.objects.get(user=request.user)
+    # Fetch the logged-in customer's data
+    customer = get_object_or_404(Customer, user=request.user)
+
+    # Fetch available services
     services = Service.objects.filter(available=True)
-    received_messages = ChatMessage.objects.filter(receiver=request.user).order_by('-timestamp')  # 👈
+
+    # Fetch messages where the logged-in customer is either the sender or the receiver (customer)
+    received_messages = ChatMessage.objects.filter(
+        Q(sender=request.user) | Q(customer=customer)
+    ).order_by('-timestamp')
 
     return render(request, 'customer/dashboard.html', {
         'customer': customer,
         'services': services,
-        'received_messages': received_messages  # 👈
+        'received_messages': received_messages
     })
 
 
-
-
-from django.shortcuts import redirect
-from django.contrib.auth import logout
-
+# Customer Logout
 def customer_logout(request):
     logout(request)  # Log out the current user
     return redirect('customer_login')  # Redirect to the login page after logging out
 
-
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from chat.models import ChatMessage
-from serviceprovider.models import Retailer
-from .models import Customer
-
+# Send message to retailer (this is the functionality for customers to send messages)
 @login_required(login_url='customer_login')
 def send_message_to_retailer(request, retailer_id):
     # Check if it's a POST request
@@ -102,7 +84,7 @@ def send_message_to_retailer(request, retailer_id):
         retailer = get_object_or_404(Retailer, id=retailer_id)
         
         # Fetch the logged-in customer
-        customer = Customer.objects.get(user=request.user)
+        customer = get_object_or_404(Customer, user=request.user)
 
         # Create and save the message to the database
         message = ChatMessage.objects.create(
@@ -117,10 +99,19 @@ def send_message_to_retailer(request, retailer_id):
 
     # If it's not a POST request, redirect back to the customer dashboard
     return redirect('customer_dashboard')
-  # or redirect to a chat page
-from django.shortcuts import render
-from django.http import HttpResponse
 
+# Chat view to display messages between customer and retailer
+@login_required(login_url='customer_login')
 def chat_view(request, retailer_id):
-    # Your logic for the chat view
-    return HttpResponse(f"Chat with retailer {retailer_id}")
+    # Fetch the retailer and customer objects
+    retailer = get_object_or_404(Retailer, id=retailer_id)
+    customer = get_object_or_404(Customer, user=request.user)
+
+    # Fetch the chat messages between this customer and retailer
+    messages = ChatMessage.objects.filter(customer=customer, retailer=retailer).order_by('timestamp')
+
+    return render(request, 'chat/chat_view.html', {
+        'retailer': retailer,
+        'customer': customer,
+        'messages': messages,
+    })

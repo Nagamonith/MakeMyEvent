@@ -1,13 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils import timezone
+
+from serviceprovider.models import Retailer
+from customer.models import Customer
 
 class ChatMessage(models.Model):
+    from django.contrib.auth.models import User
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    retailer = models.ForeignKey(Retailer, on_delete=models.CASCADE, related_name='retailer_messages', default=1)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_messages', default=1)
     message = models.TextField()
-    timestamp = models.DateTimeField(default=timezone.now)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.sender.username} -> {self.receiver.username}: {self.message[:20]}'
+        return f'From {self.sender.username} to {self.retailer if self.sender == self.customer.user else self.customer}'
 
+    class Meta:
+        ordering = ['timestamp']

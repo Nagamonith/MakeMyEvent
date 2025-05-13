@@ -28,7 +28,11 @@
                                 {% if service.website_link %}
                                     <a href="{{ service.website_link }}" target="_blank" class="btn btn-outline-primary rounded-pill">Visit Website</a>
                                 {% endif %}
-                                <a href="{% url 'chat_view' service.retailer.user.id %}" class="btn btn-outline-success rounded-pill">Chat with Retailer</a>
+                               <a href="{% url 'chat_view' service.retailer.id %}" class="btn btn-outline-success rounded-pill" 
+   onclick="window.open(this.href, 'newwindow', 'width=600,height=600'); return false;">
+   Chat with Retailer
+</a>
+
                             </div>
                         </div>
                     </div>
