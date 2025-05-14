@@ -82,16 +82,26 @@ from .models import Retailer, ChatMessage
 from customer.models import Customer
 from django.contrib.auth.models import User
 
+from django.contrib import messages
+from jobseeker.models import JobApplication
+from django.core.mail import send_mail
+from django.conf import settings
 @login_required
 def retailer_dashboard(request):
     try:
         retailer = Retailer.objects.get(user=request.user)
-        print(f"Retailer found: {retailer.user.username}")  # Debug
+        print(f"Retailer found: {retailer.user.username}")
     except Retailer.DoesNotExist:
         messages.error(request, "You are not registered as a retailer.")
         return redirect('retailer-registration')
 
-    # Get the customer_id from request
+    # Get all jobs posted by this retailer
+    jobs = Job.objects.filter(retailer=retailer)
+    
+    # Get all applications for these jobs
+    applications = JobApplication.objects.filter(job__in=jobs).select_related('job', 'jobseeker')
+    
+    # Chat functionality (your existing code)
     customer_id = request.GET.get('customer_id')
     selected_customer = None
     messages_qs = []
@@ -102,44 +112,84 @@ def retailer_dashboard(request):
             customer_user = User.objects.get(id=customer_id)
             selected_customer = Customer.objects.get(user=customer_user)
             
-            # Generate consistent room name
             user_ids = sorted([request.user.id, customer_user.id])
             room_name = f"{user_ids[0]}_{user_ids[1]}"
-            print(f"Room name generated: {room_name}")  # Debug
 
-            # Get messages exchanged between this retailer and selected customer
             messages_qs = ChatMessage.objects.filter(
                 Q(sender=request.user, retailer=retailer, customer=selected_customer) |
                 Q(sender=customer_user, retailer=retailer, customer=selected_customer)
             ).order_by('timestamp')
 
-            print(f"Messages found: {messages_qs.count()}")  # Debug
-
-            # Mark unread messages from customer as read
             if request.user != customer_user:
                 unread_messages = messages_qs.filter(sender=customer_user, is_read=False)
                 unread_messages.update(is_read=True)
-                print(f"Marked {unread_messages.count()} messages as read.")  # Debug
                 
         except (User.DoesNotExist, Customer.DoesNotExist):
             messages.error(request, "Selected customer not found.")
-            return redirect('retailer_dashboard')
 
-    # Get all unique customers this retailer has chatted with
     customer_ids = ChatMessage.objects.filter(
         retailer=retailer
     ).values_list('customer', flat=True).distinct()
-
     customers = Customer.objects.filter(id__in=customer_ids)
 
     return render(request, 'retailer_dashboard.html', {
         'retailer': retailer,
+        'jobs': jobs,
+        'applications': applications,
         'messages': messages_qs,
         'customers': customers,
         'selected_customer': selected_customer,
         'room_name': room_name
     })
-
+def update_application_status(request, application_id, status):
+    if not request.user.is_authenticated:
+        return redirect('serviceprovider_login')
+    
+    try:
+        application = JobApplication.objects.get(id=application_id)
+        if application.job.retailer.user != request.user:
+            messages.error(request, "You don't have permission to update this application.")
+            return redirect('retailer_dashboard')
+        
+        application.status = status
+        application.save()
+        
+        if status == 'ACCEPTED':
+            # Send email to jobseeker
+            subject = f"Your application for {application.job.job_title} has been accepted!"
+            message = f"""
+            Dear {application.jobseeker.username},
+            
+            We are pleased to inform you that your application for the position of 
+            {application.job.job_title} has been accepted!
+            
+            Job Details:
+            - Title: {application.job.job_title}
+            - Description: {application.job.description}
+            - Requirements: {application.job.requirements}
+            - Payment: ₹{application.job.payment}
+            - Location: {application.job.location}
+            
+            Please contact the service provider for further instructions.
+            
+            Best regards,
+            {application.job.retailer.user.username}
+            """
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [application.jobseeker.email],
+                fail_silently=False,
+            )
+            messages.success(request, "Application accepted and notification email sent!")
+        else:
+            messages.success(request, "Application status updated.")
+            
+    except JobApplication.DoesNotExist:
+        messages.error(request, "Application not found.")
+    
+    return redirect('retailer_dashboard')
 
 
 

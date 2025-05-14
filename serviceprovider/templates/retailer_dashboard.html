@@ -4,7 +4,7 @@
 
 {% block content %}
 <style>
-    /* General Styles */
+    /* Include your existing CSS styling (same as before) */
     body {
         font-family: Arial, sans-serif;
         margin: 0;
@@ -18,10 +18,9 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         margin: 20px auto;
-        max-width: 900px;
+        max-width: 1000px;
     }
 
-    /* Profile Section in Top Corner */
     .profile-section {
         position: absolute;
         top: 20px;
@@ -40,7 +39,6 @@
         text-decoration: underline;
     }
 
-    /* Dashboard Content */
     h2 {
         margin-top: 60px;
         font-size: 24px;
@@ -50,7 +48,7 @@
     .cards-container {
         display: flex;
         gap: 20px;
-        justify-content: space-between;
+        flex-wrap: wrap;
         margin-top: 20px;
     }
 
@@ -98,9 +96,8 @@
         background-color: #218838;
     }
 
-    /* Chat Styles */
     .chat-container {
-        margin-top: 30px;
+        margin-top: 40px;
     }
 
     .chat-header {
@@ -157,7 +154,6 @@
         background-color: #0056b3;
     }
 
-    /* Customer Selection Styles */
     .customer-selection {
         margin-top: 20px;
     }
@@ -188,55 +184,52 @@
 </style>
 
 <div class="dashboard-container">
-    <!-- Profile Details in Top Corner -->
+    <!-- Profile -->
     <div class="profile-section">
-        <p>Welcome, {{ retailer.user.username }}!</p> <!-- Adjusted to use retailer's associated user -->
+        <p>Welcome, {{ retailer.user.username }}!</p>
         <a href="/logout">Logout</a>
     </div>
-    
+
     <h2>Your Dashboard</h2>
-    <p>This is your dashboard. You can manage your services and post job opportunities here.</p>
-    
-    <!-- Dashboard Cards -->
+    <p>This is your dashboard. You can manage your services, job posts, chats, and applications.</p>
+
+    <!-- Cards -->
     <div class="cards-container">
-        <!-- Card 1: Add Service -->
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-plus-circle"></i>
                 <h3>Add Service</h3>
             </div>
             <div class="card-body">
-                <p>Click below to add a new service to your offerings.</p>
+                <p>Add a new service to your offerings.</p>
                 <a href="{% url 'addservice' %}" class="card-btn">Add Service</a>
             </div>
         </div>
-        
-        <!-- Card 2: Post Job -->
+
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-briefcase"></i>
                 <h3>Post Job</h3>
             </div>
             <div class="card-body">
-                <p>Click below to post a job opening for your services.</p>
+                <p>Post a new job for your services.</p>
                 <a href="{% url 'postjob' %}" class="card-btn">Post Job</a>
             </div>
         </div>
-        
-        <!-- Card 3: My Posted Services -->
+
         <div class="card">
             <div class="card-header">
                 <i class="fa fa-list-alt"></i>
                 <h3>My Posted Services</h3>
             </div>
             <div class="card-body">
-                <p>View all the services you have posted.</p>
+                <p>View your posted services.</p>
                 <a href="{% url 'my_services' %}" class="card-btn">View Services</a>
             </div>
         </div>
     </div>
 
-    <!-- Customer Selection Section -->
+    <!-- Customer Selection -->
     <div class="customer-selection">
         <h3>Choose a Customer to Chat</h3>
         <ul>
@@ -246,13 +239,12 @@
         </ul>
     </div>
 
-    <!-- Chat Section -->
+    <!-- Chat -->
     <div class="chat-container">
         <div class="chat-header">
             <h3>Chat with Customer</h3>
         </div>
-        
-        <!-- Messages Section -->
+
         <div id="chat-messages" class="messages-container">
             {% for message in messages %}
                 <div class="message {% if message.sender.id == retailer.user.id %}sent{% else %}received{% endif %}">
@@ -265,12 +257,10 @@
             {% endfor %}
         </div>
 
-        <!-- Chat Message Form -->
         <form id="chat-form" method="POST">
             {% csrf_token %}
             {% if selected_customer %}
                 <input type="hidden" name="customer_id" value="{{ selected_customer.id }}">
-                <!-- Hidden fields for WebSocket -->
                 <div id="room-name" style="display:none">{{ room_name }}</div>
                 <div id="current-user-id" style="display:none">{{ request.user.id }}</div>
                 <div id="other-user-id" style="display:none">{{ selected_customer.user.id }}</div>
@@ -280,14 +270,57 @@
             <button id="chat-message-submit" type="submit" class="chat-btn">Send</button>
         </form>
     </div>
+
+    <!-- Job Applications -->
+    <h3 class="mt-5">Job Applications</h3>
+    {% if applications %}
+        <div class="table-responsive mt-3">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Applicant</th>
+                        <th>Applied On</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for app in applications %}
+                    <tr>
+                        <td>{{ app.job.job_title }}</td>
+                        <td>{{ app.jobseeker.username }}</td>
+                        <td>{{ app.application_date|date:"d M Y" }}</td>
+                        <td>
+                            <span class="badge 
+                                {% if app.status == 'ACCEPTED' %}bg-success
+                                {% elif app.status == 'REJECTED' %}bg-danger
+                                {% else %}bg-warning{% endif %}">
+                                {{ app.status }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if app.status == 'PENDING' %}
+                                <a href="{% url 'update_application_status' app.id 'ACCEPTED' %}" 
+                                   class="btn btn-sm btn-success">Accept</a>
+                                <a href="{% url 'update_application_status' app.id 'REJECTED' %}" 
+                                   class="btn btn-sm btn-danger">Reject</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No applications received yet.</p>
+    {% endif %}
 </div>
 
-<!-- Include the chat JavaScript -->
+<!-- WebSocket Chat Script -->
 {% load static %}
-<!-- Add this at the bottom of retailer_dashboard.html -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Only initialize chat if we have a selected customer
     const roomNameElement = document.getElementById('room-name');
     if (!roomNameElement) return;
 
@@ -295,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const currentUserId = parseInt(document.getElementById('current-user-id').textContent);
     const otherUserId = parseInt(document.getElementById('other-user-id').textContent);
     const senderUsername = document.getElementById('sender-username').textContent;
-    
+
     const chatSocket = new WebSocket(
         'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
     );
@@ -303,40 +336,33 @@ document.addEventListener('DOMContentLoaded', function() {
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
         const messageElement = document.createElement('div');
-        
+
         if (data.sender_id === currentUserId) {
             messageElement.className = 'message sent';
-            messageElement.innerHTML = `
-                <span class="sender">You:</span>
-                <span class="message-text">${data.message}</span>
-                <span class="timestamp">${data.timestamp}</span>
-            `;
+            messageElement.innerHTML = `<span class="sender">You:</span>
+                                        <span class="message-text">${data.message}</span>
+                                        <span class="timestamp">${data.timestamp}</span>`;
         } else {
             messageElement.className = 'message received';
-            messageElement.innerHTML = `
-                <span class="sender">${senderUsername}:</span>
-                <span class="message-text">${data.message}</span>
-                <span class="timestamp">${data.timestamp}</span>
-            `;
+            messageElement.innerHTML = `<span class="sender">${senderUsername}:</span>
+                                        <span class="message-text">${data.message}</span>
+                                        <span class="timestamp">${data.timestamp}</span>`;
         }
-        
+
         document.querySelector('#chat-messages').appendChild(messageElement);
         scrollToBottom();
     };
 
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
-        setTimeout(function() {
-            console.log('Attempting to reconnect...');
-            setupWebSocket();
-        }, 2000);
+        setTimeout(() => location.reload(), 2000);
     };
 
     document.querySelector('#chat-form').onsubmit = function(e) {
         e.preventDefault();
         const messageInputDom = document.querySelector('#chat-message-input');
         const message = messageInputDom.value.trim();
-        
+
         if (message) {
             chatSocket.send(JSON.stringify({
                 'message': message,
@@ -351,10 +377,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const chatMessages = document.querySelector('#chat-messages');
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
+
     scrollToBottom();
-    document.querySelector('#chat-message-input').focus();
 });
 </script>
-
 {% endblock %}

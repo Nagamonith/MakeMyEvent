@@ -13,4 +13,6 @@ urlpatterns = [
     path('editservice/<int:service_id>/', views.edit_service, name='edit_service'),
     path('create-retailer/', views.create_retailer, name='create_retailer'),  # Fixed path
     path('retailer-registration/', views.serviceprovider_register, name='retailer-registration'),  # Registration page
+    path('application/<int:application_id>/<str:status>/', views.update_application_status, name='update_application_status'),
+    path('application/update/<int:application_id>/<str:status>/', views.update_application_status, name='update_application_status'),
 ]
