@@ -155,6 +155,14 @@ def update_application_status(request, application_id, status):
         application.save()
         
         if status == 'ACCEPTED':
+            # Debugging: Print jobseeker details before sending email
+            print("\n--- DEBUG: Email Recipient Check ---")
+            print(f"Jobseeker Username: {application.jobseeker.username}")
+            print(f"Jobseeker Email: {application.jobseeker.email}")
+            print(f"Job Title: {application.job.job_title}")
+            print(f"Retailer Email (Request User): {request.user.email}")  # Check if this matches where emails are going
+            print("----------------------------------\n")
+
             # Send email to jobseeker
             subject = f"Your application for {application.job.job_title} has been accepted!"
             message = f"""
@@ -175,11 +183,12 @@ def update_application_status(request, application_id, status):
             Best regards,
             {application.job.retailer.user.username}
             """
+            
             send_mail(
                 subject,
                 message,
                 settings.DEFAULT_FROM_EMAIL,
-                [application.jobseeker.email],
+                [application.jobseeker.email],  # Verify this is correct in the debug output
                 fail_silently=False,
             )
             messages.success(request, "Application accepted and notification email sent!")
