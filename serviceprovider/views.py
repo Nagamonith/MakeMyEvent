@@ -141,6 +141,8 @@ def retailer_dashboard(request):
         'selected_customer': selected_customer,
         'room_name': room_name
     })
+from serviceprovider.models.payment import Payment
+
 def update_application_status(request, application_id, status):
     if not request.user.is_authenticated:
         return redirect('serviceprovider_login')
@@ -191,7 +193,16 @@ def update_application_status(request, application_id, status):
                 [application.jobseeker.email],  # Verify this is correct in the debug output
                 fail_silently=False,
             )
-            messages.success(request, "Application accepted and notification email sent!")
+
+            # Create a payment record
+        if status == 'ACCEPTED':
+            Payment.objects.create(
+                job_application=application,
+                amount=application.job.payment,  # Replace with the actual payment amount
+                paid_to=application.jobseeker,
+                status='PENDING'
+            )
+            messages.success(request, "Application accepted, notification email sent, and payment record created.")
         else:
             messages.success(request, "Application status updated.")
             
@@ -199,7 +210,6 @@ def update_application_status(request, application_id, status):
         messages.error(request, "Application not found.")
     
     return redirect('retailer_dashboard')
-
 
 
 
@@ -327,3 +337,86 @@ def service_entry(request):
             messages.error(request, "All fields are required.")
 
     return render(request, 'service_entry.html')
+# File: serviceprovider/views.py
+import razorpay
+from django.shortcuts import redirect, get_object_or_404
+from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .models.payment import Payment
+import json
+
+@login_required
+def process_payment(request, payment_id):
+    # Fetch the payment object
+    payment_obj = get_object_or_404(Payment, id=payment_id, status='PENDING')
+
+    # Initialize Razorpay client
+    client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+
+    # Create an order in Razorpay
+    razorpay_order = client.order.create({
+        "amount": int(payment_obj.amount * 100),  # Amount in paise
+        "currency": "INR",
+        "payment_capture": "1"
+    })
+
+    # Save the Razorpay order ID in the payment object
+    payment_obj.razorpay_order_id = razorpay_order['id']
+    payment_obj.save()
+
+    # Redirect to Razorpay checkout page
+    return JsonResponse({
+        "razorpay_key": settings.RAZORPAY_KEY_ID,
+        "order_id": razorpay_order['id'],
+        "amount": payment_obj.amount,
+        "currency": "INR",
+        "callback_url": request.build_absolute_uri('/razorpay-callback/')
+    })
+@csrf_exempt
+def razorpay_callback(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        razorpay_order_id = data.get("razorpay_order_id")
+        razorpay_payment_id = data.get("razorpay_payment_id")
+        razorpay_signature = data.get("razorpay_signature")
+
+        # Verify the payment signature
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET))
+        try:
+            client.utility.verify_payment_signature({
+                'razorpay_order_id': razorpay_order_id,
+                'razorpay_payment_id': razorpay_payment_id,
+                'razorpay_signature': razorpay_signature
+            })
+
+            # Update the payment status
+            payment_obj = Payment.objects.get(razorpay_order_id=razorpay_order_id)
+            payment_obj.status = 'COMPLETED'
+            payment_obj.save()
+
+            return JsonResponse({"status": "success"})
+        except razorpay.errors.SignatureVerificationError:
+            return JsonResponse({"status": "failure"}, status=400)
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models.payment import Payment
+from .models import Retailer
+
+@login_required
+def payment_dashboard(request):
+    try:
+        # Get the retailer associated with the logged-in user
+        retailer = Retailer.objects.get(user=request.user)
+        
+        # Fetch all pending payments for jobs posted by this retailer
+        payments = Payment.objects.filter(
+            job_application__job__retailer=retailer,
+            status='PENDING'
+        )
+        print(f"Payments: {payments}")  # Debugging
+    except Retailer.DoesNotExist:
+        payments = []  # If the retailer does not exist, return an empty list
+        print("Retailer does not exist.")  # Debugging
+
+    return render(request, 'payment_dashboard.html', {'payments': payments})

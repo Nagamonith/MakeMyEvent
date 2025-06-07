@@ -15,4 +15,7 @@ urlpatterns = [
     path('retailer-registration/', views.serviceprovider_register, name='retailer-registration'),  # Registration page
     path('application/<int:application_id>/<str:status>/', views.update_application_status, name='update_application_status'),
     path('application/update/<int:application_id>/<str:status>/', views.update_application_status, name='update_application_status'),
+    path('payment_dashboard/', views.payment_dashboard, name='payment_dashboard'),
+    path('process_payment/<int:payment_id>/', views.process_payment, name='process_payment'),
+    path('razorpay-callback/', views.razorpay_callback, name='razorpay_callback'),
 ]

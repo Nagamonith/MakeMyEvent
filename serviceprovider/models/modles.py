@@ -12,3 +12,6 @@ class ChatMessage(models.Model):
 
     def __str__(self):
         return f"Message from {self.sender.username} to {self.customer.username}"
+# filepath: c:\Users\MONITH\OneDrive\Desktop\makemyeventsmonith\MakeMyEvent\serviceprovider\models.py
+
+

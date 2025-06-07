@@ -185,10 +185,11 @@
 
 <div class="dashboard-container">
     <!-- Profile -->
-    <div class="profile-section">
-        <p>Welcome, {{ retailer.user.username }}!</p>
-        <a href="/logout">Logout</a>
-    </div>
+    <<div class="profile-section">
+    <p>Welcome, {{ retailer.user.username }}!</p>
+    <a href="{% url 'payment_dashboard' %}" class="btn btn-warning btn-sm">Pending Payments</a>
+    <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+</div>
 
     <h2>Your Dashboard</h2>
     <p>This is your dashboard. You can manage your services, job posts, chats, and applications.</p>

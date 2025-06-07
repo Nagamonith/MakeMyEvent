@@ -1,0 +1,42 @@
+<!-- File: serviceprovider/templates/serviceprovider/razorpay_payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Make Payment</h1>
+    <button id="pay-button">Pay ₹{{ amount }}</button>
+
+    <script>
+        const options = {
+            "key": "YOUR_KEY_ID",  // Replace with your Razorpay key ID
+            "amount": "{{ amount|floatformat:2 }}",
+            "currency": "INR",
+            "name": "MakeMyEvent",
+            "description": "Payment for jobseeker",
+            "order_id": "{{ order_id }}",
+            "handler": function (response) {
+                alert("Payment successful!");
+                window.location.href = "{% url 'payment_dashboard' %}";
+            },
+            "prefill": {
+                "name": "{{ request.user.username }}",
+                "email": "{{ request.user.email }}"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+
+        const rzp = new Razorpay(options);
+        document.getElementById('pay-button').onclick = function (e) {
+            rzp.open();
+            e.preventDefault();
+        };
+    </script>
+</body>
+</html>
