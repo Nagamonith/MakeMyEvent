@@ -1,32 +1,122 @@
-{% if payments %}
-    <p>Payments found: {{ payments|length }}</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Job Title</th>
-                <th>Jobseeker</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for payment in payments %}
-            <tr>
-                <td>{{ payment.job_application.job.job_title }}</td>
-                <td>{{ payment.paid_to.username }}</td>
-                <td>₹{{ payment.amount }}</td>
-                <td>{{ payment.status }}</td>
-                <td>
-                    <form action="{% url 'process_payment' payment.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-primary">Pay</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No pending payments found.</p>
-{% endif %}
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Pending Payments</h2>
+    
+    {% if payments %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Jobseeker</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for payment in payments %}
+                    <tr>
+                        <td>{{ payment.job_application.job.job_title }}</td>
+                        <td>{{ payment.paid_to.username }}</td>
+                        <td>₹{{ payment.amount }}</td>
+                        <td>{{ payment.status }}</td>
+                        <td>
+                            <button onclick="initiateGooglePay('{{ payment.amount }}', '{{ payment.job_application.job.job_title }}', '{{ payment.id }}')" 
+                                    class="btn btn-primary">
+                                Pay with Google Pay
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No pending payments found.</p>
+    {% endif %}
+</div>
+
+<!-- Google Pay API Integration -->
+<script>
+function initiateGooglePay(amount, description, paymentId) {
+    // Google Pay API configuration
+    const paymentRequest = {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods: [
+            {
+                type: "CARD",
+                parameters: {
+                    allowedAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
+                    allowedCardNetworks: ["AMEX", "DISCOVER", "MASTERCARD", "VISA"]
+                },
+                tokenizationSpecification: {
+                    type: "PAYMENT_GATEWAY",
+                    parameters: {
+                        gateway: "example",
+                        gatewayMerchantId: "exampleGatewayMerchantId"
+                    }
+                }
+            }
+        ],
+        merchantInfo: {
+            merchantId: "BCR2DN4TXL5QXVGJ", // Replace with your merchant ID
+            merchantName: "MakeMyEvent"
+        },
+        transactionInfo: {
+            totalPriceStatus: "FINAL",
+            totalPriceLabel: "Total",
+            totalPrice: amount.toString(),
+            currencyCode: "INR",
+            countryCode: "IN"
+        },
+        callbackIntents: ["PAYMENT_AUTHORIZATION"]
+    };
+
+    // Create Google Pay client
+    const paymentsClient = new google.payments.api.PaymentsClient({
+        environment: "TEST" // Use "PRODUCTION" for live environment
+    });
+
+    // Load Google Pay button
+    paymentsClient.loadPaymentData(paymentRequest)
+        .then(paymentData => {
+            // Handle successful payment
+            console.log("Payment successful:", paymentData);
+            updatePaymentStatus(paymentId, 'COMPLETED');
+        })
+        .catch(err => {
+            // Handle errors
+            console.error("Payment failed:", err);
+            alert("Payment failed. Please try again.");
+        });
+}
+
+function updatePaymentStatus(paymentId, status) {
+    // Send AJAX request to update payment status
+    fetch(`/update-payment-status/${paymentId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({status: status})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Payment processed successfully!");
+            window.location.reload();
+        } else {
+            alert("Error updating payment status.");
+        }
+    });
+}
+</script>
+
+<!-- Load Google Pay JS API -->
+<script src="https://pay.google.com/gp/p/js/pay.js"></script>
+{% endblock %}

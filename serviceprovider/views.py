@@ -420,3 +420,18 @@ def payment_dashboard(request):
         print("Retailer does not exist.")  # Debugging
 
     return render(request, 'payment_dashboard.html', {'payments': payments})
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Payment
+
+@csrf_exempt
+def update_payment_status(request, payment_id):
+    if request.method == 'POST':
+        try:
+            payment = Payment.objects.get(id=payment_id)
+            payment.status = 'COMPLETED'
+            payment.save()
+            return JsonResponse({'success': True})
+        except Payment.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Payment not found'})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
